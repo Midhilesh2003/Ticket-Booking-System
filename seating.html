@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Select Your Seats</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Select Your Seats</h1>
+    <div id="seatLayout" class="seats"></div>
+    <button onclick="bookNow()">Book Selected Seats</button>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const screenId = urlParams.get('screenId');
+
+    const seatContainer = document.getElementById('seatLayout');
+    let selectedSeats = [];
+
+    const totalSeats = 100;
+
+    async function loadSeats() {
+      const res = await fetch(`http://localhost:3000/api/screens/${screenId}/seats`);
+      const booked = await res.json();
+
+      for (let i = 1; i <= totalSeats; i++) {
+        const seat = document.createElement('div');
+        seat.className = 'seat';
+        seat.innerText = i;
+
+        if (booked.includes(i)) {
+          seat.classList.add('booked');
+        } else {
+          seat.addEventListener('click', () => {
+            seat.classList.toggle('selected');
+            const num = parseInt(seat.innerText);
+            if (seat.classList.contains('selected')) {
+              selectedSeats.push(num);
+            } else {
+              selectedSeats = selectedSeats.filter(s => s !== num);
+            }
+          });
+        }
+
+        seatContainer.appendChild(seat);
+      }
+    }
+
+    async function bookNow() {
+      if (selectedSeats.length === 0) return alert('No seats selected');
+
+      const res = await fetch(`http://localhost:3000/api/screens/${screenId}/book`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ seatNumbers: selectedSeats })
+      });
+
+      const result = await res.json();
+      if (res.ok) {
+        alert(result.message);
+        location.reload();
+      } else {
+        alert('Some seats could not be booked: ' + result.seats?.join(', '));
+        location.reload();
+      }
+    }
+
+    loadSeats();
+  </script>
+</body>
+</html>

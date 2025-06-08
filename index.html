@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tickr — Now Showing</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🎬 Tickr - Book Your Movie</h1>
+    <p>Select a movie to continue:</p>
+    <div class="movie-list" id="movieList"></div>
+  </div>
+
+  <script>
+    fetch('http://localhost:3000/api/movies')
+      .then(res => res.json())
+      .then(data => {
+        const movieList = document.getElementById('movieList');
+        data.forEach(movie => {
+          const movieCard = document.createElement('div');
+          movieCard.className = 'movie-card';
+          movieCard.innerHTML = `<h2>${movie.title}</h2><p>${movie.description}</p><a href="movies.html?movieId=${movie.id}">View Theatres</a>`;
+          movieList.appendChild(movieCard);
+        });
+      })
+      .catch(err => console.error('Error fetching movies:', err));
+  </script>
+</body>
+</html>

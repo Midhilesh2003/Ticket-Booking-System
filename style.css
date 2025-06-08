@@ -1,0 +1,88 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 2rem;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: auto;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+
+  input, textarea, button {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+  }
+
+  input, textarea {
+    background: #2a2a2a;
+    color: #fff;
+  }
+
+  button {
+    background: #00c853;
+    color: white;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #00a74f;
+  }
+
+  .movie-card {
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 15px;
+    background: #2b2b2b;
+    margin: 15px 0;
+  }
+
+  .movie-card h2 {
+    margin: 0 0 5px;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .seats {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 10px;
+    max-width: 600px;
+    margin: 20px auto;
+  }
+
+  .seat {
+    width: 40px;
+    height: 40px;
+    background: #444;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .seat.selected {
+    background: #00c853;
+  }
+
+  .seat.booked {
+    background: #b71c1c;
+    cursor: not-allowed;
+  }

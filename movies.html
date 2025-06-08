@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Select Screen</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🎞️ Available Screens</h1>
+    <ul id="screenList"></ul>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const movieId = urlParams.get('movieId');
+
+    fetch(`http://localhost:3000/api/movies/${movieId}/screens`)
+      .then(res => res.json())
+      .then(screens => {
+        const list = document.getElementById('screenList');
+        screens.forEach(screen => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="seating.html?screenId=${screen.id}">${screen.theatre_name} - ${screen.city}</a>`;
+          list.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
