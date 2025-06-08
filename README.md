@@ -9,7 +9,7 @@ Tickr is a full-stack web-based ticket booking system where users can browse mov
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/tickr.git
+git clone https://github.com/Midhilesh2003/tickr.git
 cd tickr
 ```
 
@@ -29,7 +29,7 @@ Create a `.env` file in the backend folder:
 
 ```env
 PORT=3000
-DATABASE_URL=postgresql://postgres:<your-password>@localhost:5432/tickr
+DATABASE_URL=postgresql://postgres:admin@123@localhost:5432/tickr
 ```
 
 ### 4. Start the Server
