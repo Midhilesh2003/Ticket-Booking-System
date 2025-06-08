@@ -1,31 +1,10 @@
 # 🎬 Tickr – Movie Ticket Booking Web App
 
-Tickr is a full-stack web-based ticket booking platform inspired by RedBus and BookMyShow. Users can browse movies, select seats, and book tickets. Admins can manage movie listings with posters via a drag-and-drop UI.
+Tickr is a full-stack web-based ticket booking system where users can browse movies, select theatre screens, and book seats. It features an admin panel for managing movies and posters, and handles high concurrency during seat booking using PostgreSQL transactions.
 
 ---
 
-## 🚀 Features
-
-- 🎞️ Movie management with poster upload (Admin)
-- 🏙️ City and theatre-based screening
-- 💺 Visual seat selection
-- 🔒 Concurrency-safe seat booking using PostgreSQL transactions
-- 📁 Poster uploads using drag & drop
-
----
-
-## 📦 Tech Stack
-
-| Layer       | Technology           |
-|-------------|----------------------|
-| Frontend    | HTML, CSS, JavaScript |
-| Backend     | Node.js, Express.js   |
-| Database    | PostgreSQL            |
-| File Upload | Multer                |
-
----
-
-## 🛠️ Installation
+## ⚙️ Setup Instructions
 
 ### 1. Clone the Repository
 
@@ -34,10 +13,10 @@ git clone https://github.com/yourusername/tickr.git
 cd tickr
 ```
 
-### 2. Setup Database
+### 2. Set Up PostgreSQL
 
 - Create a database named `tickr` using `pgAdmin` or CLI
-- Run the schema from `tickr_schema.sql`
+- Run the `tickr_schema.sql` to create tables
 
 ### 3. Configure Backend
 
@@ -46,9 +25,9 @@ cd tickr-backend
 npm install
 ```
 
-Create a `.env` file:
+Create a `.env` file in the backend folder:
 
-```
+```env
 PORT=3000
 DATABASE_URL=postgresql://postgres:<your-password>@localhost:5432/tickr
 ```
@@ -59,38 +38,78 @@ DATABASE_URL=postgresql://postgres:<your-password>@localhost:5432/tickr
 npm run dev
 ```
 
----
+### 5. Open Frontend
 
-## 👩‍💼 Admin Usage
-
-- Open `admin.html`
-- Fill in movie details
-- Drag and drop poster
-- Submit to save in DB
+- Use Live Server or manually open `index.html` and `admin.html` in the browser.
 
 ---
 
-## 👥 User Workflow
+## 🧪 API Documentation
 
-1. Visit `index.html`
-2. Select a movie → Go to `movies.html`
-3. Select a screen → Open `seating.html`
-4. Choose seats → Click "Book"
+### 📫 Base URL
+
+```
+http://localhost:3000/api
+```
+
+### 📚 Endpoints
+
+#### 🎞️ Movies
+
+| Method | Endpoint         | Description              |
+|--------|------------------|--------------------------|
+| GET    | `/movies`        | List all movies          |
+| POST   | `/movies`        | Add a new movie (with poster) |
+
+#### 🏢 Screens
+
+| Method | Endpoint                          | Description                    |
+|--------|-----------------------------------|--------------------------------|
+| GET    | `/movies/:movieId/screens`        | Get screens for a movie        |
+
+#### 💺 Bookings
+
+| Method | Endpoint                          | Description                    |
+|--------|-----------------------------------|--------------------------------|
+| GET    | `/screens/:screenId/seats`        | Get booked seats for a screen |
+| POST   | `/screens/:screenId/book`         | Book selected seats            |
 
 ---
 
-## 🔍 API Endpoints
+## 📄 Postman Collection
 
-| Method | Endpoint                             | Description                   |
-|--------|--------------------------------------|-------------------------------|
-| GET    | `/api/movies`                        | List all movies               |
-| POST   | `/api/movies`                        | Add a movie with poster       |
-| GET    | `/api/movies/:movieId/screens`       | Get screens for movie         |
-| GET    | `/api/screens/:screenId/seats`       | Get booked seat numbers       |
-| POST   | `/api/screens/:screenId/book`        | Book selected seats           |
+A Postman collection is included to test all the API endpoints:
+
+📁 [Download Tickr.postman_collection.json](./docs/Tickr.postman_collection.json)
+
+To use:
+
+1. Open Postman
+2. Import the collection file
+3. Set environment variable `{{base_url}}` to `http://localhost:3000/api`
+
+---
+
+## 📁 Folder Structure
+
+```
+tickr/
+├── admin.html
+├── index.html
+├── movies.html
+├── seating.html
+├── style.css
+├── tickr-backend/
+│   ├── controllers/
+│   ├── routes/
+│   ├── uploads/
+│   ├── server.js
+│   ├── db.js
+│   └── .env
+```
 
 ---
 
 ## 🔧 License
 
-This project is for educational and demonstration purposes only.
+This project is for educational purposes. Built for demonstration and internship assessments.
